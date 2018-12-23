@@ -1,0 +1,105 @@
+#include "stdafx.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include < string.h > 
+
+using namespace std;
+struct NOTEBOOK
+{
+	struct disp_res
+	{
+		int x;
+		int y;
+	}plays;
+	int f;
+	float d;
+	float hdd;
+	char model[21];
+};
+
+
+int main()
+{	setlocale (0,"");
+	ifstream f;
+	NOTEBOOK info;
+	FILE *Df;
+	int count=0;
+	NOTEBOOK  COMP[100];
+	f.open("C:\\Users\\Asus\\Desktop\\Настя\\infocomp.txt", ios::in);
+	Df=fopen("C:\\Users\\Asus\\Desktop\\Настя\\dinfocomp.dat","ab+");
+	//info.f=200;
+		while (!f.eof())
+	{
+		
+		f>>info.plays.x;
+		f>>info.plays.y;
+		f>>info.f;
+		f>>info.d;
+		f>>info.hdd;
+		f>>info.model;
+		cout<<"hdd= "<<info.hdd<<endl;
+		
+		if (info.hdd<1)
+		{
+			
+			COMP[count].plays.x=info.plays.x;
+			COMP[count].plays.y=info.plays.y;
+			COMP[count].f=info.f;
+			COMP[count].d=info.d;
+			COMP[count].hdd=info.hdd;
+			strcpy(COMP[count].model, info.model);
+			
+			count++;
+		}
+			
+	}	
+		
+	for (int i = 0; i < count - 1; i++) 
+	{
+        for (int j = 0; j < count - i - 1; j++)
+		{
+            if (strcmp (COMP[j].model, COMP[j + 1].model)>0);
+			{
+                
+				info.plays.x=COMP[j].plays.x;
+				info.plays.y=COMP[j].plays.y;
+				info.f=COMP[j].f;
+				info.d=COMP[j].d;
+				info.hdd=COMP[j].hdd;
+				strcpy(info.model, COMP[j].model);
+				COMP[j].plays.x=COMP[j+1].plays.x;
+				COMP[j].plays.y=COMP[j+1].plays.y;
+				COMP[j].f=COMP[j+1].f;
+				COMP[j].d=COMP[j+1].d;
+				COMP[j].hdd=COMP[j+1].hdd;
+				strcpy(COMP[j].model, COMP[j+1].model);
+				COMP[j+1].plays.x=info.plays.x;
+				COMP[j+1].plays.y=info.plays.y;
+				COMP[j+1].f=info.f;
+				COMP[j+1].d=info.d;
+				COMP[j+1].hdd=info.hdd;
+				strcpy(COMP[j+1].model, info.model);
+            }
+        }
+    }
+
+	fwrite(&count, 2, 1, Df);
+	for (int i=0; i<count;i++)
+	{
+		cout<<COMP[i].plays.x<<endl;
+		cout<<COMP[i].plays.y<<endl;
+		cout<<COMP[i].f<<endl;
+		cout<<COMP[i].d<<endl;
+		cout<<COMP[i].hdd<<endl;
+		cout<<COMP[i].model<<endl;
+		fwrite(&COMP[i], sizeof(NOTEBOOK), 1, Df);
+	}
+	
+	f.close();
+	fclose(Df);
+	system("pause");
+	return 0;
+}
+
+
