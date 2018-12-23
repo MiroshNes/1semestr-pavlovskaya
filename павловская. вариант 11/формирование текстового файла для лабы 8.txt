@@ -1,0 +1,49 @@
+#include "stdafx.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+struct NOTEBOOK
+{
+	struct disp_res
+	{
+		int x;
+		int y;
+	}plays;
+	int f;
+	float d;
+	float hdd;
+	char model[21];
+};
+int main()
+{
+	setlocale (0,"");
+	ofstream f;
+	NOTEBOOK info;
+	f.open("C:\\Users\\Asus\\Desktop\\Настя\\infocomp.txt", ios::out);
+	info.f=200;
+	for (int i=0;i<5;i++)
+	{
+		cout<<"введи размеры по горизонтали и вертикали"<<endl;
+		cin>>info.plays.x;
+		cin>>info.plays.y;
+		cout<<"введи размер по диагонали"<<endl;
+		cin>>info.d;
+		cout<<"введи обьем диска"<<endl;
+		cin>>info.hdd;
+		cout<<"введи наименование"<<endl;
+		cin>>info.model;
+		
+		f<<info.plays.x<<endl;
+		f<<info.plays.y<<endl;
+		f<<info.d<<endl;
+		f<<info.hdd<<endl;
+		f<<info.model<<endl;
+
+	}
+	f.close();
+	system("pause");
+	return 0;
+}
+
+
