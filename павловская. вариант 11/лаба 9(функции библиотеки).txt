@@ -1,0 +1,60 @@
+#include "stdafx.h"
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <locale.h>
+#include <process.h>
+#include <string>
+#include <Windows.h>
+#include <windows.h>
+using namespace std;
+
+
+int main()
+{
+	setlocale (0,"");
+	FILE *Df;
+	Df=fopen("C:\\Users\\Asus\\Desktop\\Настя\\mytext.dat","ab+");
+	string *Tk;
+	Tk=new string[1000];
+	std::string st="";
+	int N=0;
+	int alllength=0;
+	cout<<" enter the text in Latin letters "<<endl;
+	while ((alllength<1000)&&(st!="end"))
+	{
+		 getline (std::cin,st);
+		if (st.length()>70)
+		{
+			st.erase(71,st.length());
+		}
+		Tk[N++]=st;
+		alllength+=st.length();
+		fwrite(&st, st.length(), 1, Df);
+	}
+	N--;
+	st=Tk[N-1];
+//	cout<<st<<endl;
+	string slovo="";
+	int k=0;
+	int i=st.length();
+	while((i>=0)&&(st[i]!=' '))
+		{
+		 if (st[i]=='a')
+		 {			
+			k++;
+		 }
+		 i--;
+		}
+	slovo=st;
+    slovo.erase(0,i+1);
+	for (int i=0; i<N; i++)
+	{
+		cout<<Tk[i]<<endl;
+	}
+	_getch();
+	cout<<"last word:  "<<slovo<<"into it "<<k<<" letter a"<<endl;
+	system("pause");
+	return 0;
+}
+
