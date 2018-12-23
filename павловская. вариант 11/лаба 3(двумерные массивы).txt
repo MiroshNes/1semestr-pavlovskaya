@@ -1,0 +1,90 @@
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip> 
+using namespace std;
+int main()
+{
+	setlocale (0, "");
+	double A[10][10];
+	int N;
+	cout<<" enter the dimension of the matrix < 10 "<< endl;
+	cin>>N;
+	
+	cout<<" enter the matrix "<<endl;
+	for (int i=0; i<N; i++)
+	{
+		for (int j=0; j<N; j++)
+		{
+			cin>>A[i][j];
+		}
+	}
+	cout<<" enter the specified value "<<endl;
+	int Pr;
+	cin>>Pr;
+	int count=0;
+	for (int i=0;i<N; i++)
+	{
+		int sum=0;
+		for (int j=0; j<N; j++)
+		{
+			sum+=A[i][j];
+		}
+		if (sum/N<Pr)
+		{
+			count++;
+		}
+	}
+
+	cout<<" the number of rows whose average elements <"<<Pr<<" ="<<count<<endl;
+	int max, L;
+	double b;
+	for (int i=0;i<N; i++)
+	{
+		max=A[i][i];
+		L=i;
+		for (int j=i;j<N;j++)
+		{
+			if (A[j][i]>max)
+			{
+				max=A[j][i];
+				L=j;
+			}
+		}
+		for (int j=i; j<N; j++)
+		{
+			b=A[i][j];
+			A[i][j]=A[L][j];
+			A[L][j]=b;
+		}
+		for (int j=i; j<N; j++)
+		{
+			A[i][j]=A[i][j]/A[i][i];
+		}
+		
+		for (int j=i+1;j<N;j++)
+		{
+			b=A[j][i];
+			for (int k=i; k<N; k++)
+			{
+				A[j][k]-=A[i][k]*b;
+			}
+			
+		}
+	}
+	
+	//vv(A,N);
+cout<<" matrix "<<endl;
+	for (int i=0; i<N; i++)
+	{
+		for (int j=0; j<N; j++)
+		{
+			cout<<std::setfill (' ')<<std::setw(7)<<A[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+
+	system("pause");
+	return 0;
+}
+
+
