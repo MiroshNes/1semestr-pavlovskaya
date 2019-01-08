@@ -1,0 +1,73 @@
+#include "stdafx.h"
+#include <iostream>
+#include "cstdlib"
+using namespace std;
+
+int main()
+{
+	setlocale(0,"");
+	int *A; 
+	int N;
+	cout<< "enter the number of elements in the array"<<endl;
+	cin>>N;
+	A=new int[N];
+	cout<<"enter the numbers, at least one negative "<<endl;
+	for (int i=0; i<N; i++)
+	{
+		cin>>A[i];
+	}
+	int min=abs(A[0]);
+	int L=0;
+	for (int i=0; i<N; i++)
+	{
+		if (min > abs (A[i]))
+		{
+			min=abs(A[i]);
+			L=i;
+		}
+
+	}
+	cout<<"the minimum element is in place:  "<<L<<endl;
+	int k=0;
+	while ((k<N) && (A[k]>=0))
+	{
+		k++;
+	}
+	cout<<"source array "<<endl;
+	for (int i=0; i<N; i++)
+	{
+		cout<<A[i]<<"  ";
+	}
+	cout<<endl;
+	int sum=0;
+	for (int i=k+1; i<N; i++)
+	{
+		sum+=A[i];
+	}
+	cout<<"the sum of the elements of the array behind the firt negative = "<<sum<<endl;
+	int a, b;
+	cout<<"enter value a"<<endl;
+	cin>>a;
+	cout<<" enter value b"<<endl;
+	cin>>b;
+	for (int i=0; i<N; i++)
+	{
+		if ((a<=A[i])&&(A[i]<=b))
+		{
+			for (int j=i; j<N-1; j++)
+			{
+				A[j]=A[j+1];
+			}
+			A[N-1]=0;
+			i--;
+		}
+	}
+	cout<<"compressed array"<<endl;
+	for (int i=0; i<N; i++)
+	{
+		cout<<A[i]<<"  ";
+	}
+	cout<<endl;
+	system("pause");
+	return 0;
+}
